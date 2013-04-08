@@ -44,25 +44,31 @@
 <body>
 	<div class="container-fluid">
 		<div class="container">
-		<div class="content">
-		  <div class="row">
-			<div class="login-form">
-			  <h2>Login</h2>
-			  <form action="check.php" method="post">
-				<fieldset>
-				  <div class="clearfix">
-					<input type="text" name="username" placeholder="Username">
-				  </div>
-				  <div class="clearfix">
-					<input type="password" name="password" placeholder="Password">
-				  </div>
-				  <button class="btn btn-primary" type="submit">Sign in</button>
-				</fieldset>
-			  </form>
+			<div class="content">
+				<div class="row">
+					<div class="login-form">
+						<h2>
+							Login
+						</h2>
+						<form action="check.php" method="post">
+							<!-- Zero for user login -->
+							<input type="hidden" value="0">
+							<fieldset>
+								<div class="clearfix">
+									<input type="email" name="email" placeholder="aaaNNNN@rit.edu" required>
+								</div>
+								<div class="clearfix">
+									<input type="password" name="password" placeholder="Password" required>
+								</div>
+								<button class="btn btn-primary" type="submit">
+									Sign in
+								</button>
+							</fieldset>
+						</form>
+					</div>
+				</div>
 			</div>
-		  </div>
-    </div>
-  </div>
+		</div>
 	</div>
 </body>
 </html>
