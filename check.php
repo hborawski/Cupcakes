@@ -6,7 +6,7 @@
 		//$pass = $_POST['password'];
 		//$loginType = $_POST['type'];
 
-
+		$login = false;
 		mysql_connect($mysql_host,$mysql_user,$mysql_password);
 		if ($loginType == 1){
 			@mysql_select_db($mysql_database);
@@ -18,6 +18,7 @@
 			if($count == 1){
 				session_start();
 				$perm = true;
+				$login = true;
 				$_SESSION['permission'] = $perm;
 			}
 		}elseif($loginType==0){
@@ -29,9 +30,12 @@
 			if($count ==1){
 				session_start();
 				$perm = true;
+				$login = true;
 				$_SESSION['user']= $perm;
 			}
 		}
+		return $login;
+
 	}
 }
 
