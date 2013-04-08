@@ -1,7 +1,7 @@
 <?php
 
-include "CONST.php";
 
+include "CONST.php";
 
 $toUpdate=$_POST['toUpdate'];
 $checkbox=$_POST['checkbox'];
@@ -40,6 +40,6 @@ echo $action;
 mysql_query($query);
 
 mysql_close();
-//header("location:management.html");
+header("location:management.html");
 
 ?>
