@@ -43,7 +43,7 @@ for($i=0;$i<$numrows;$i++){
     $offers = mysql_result($result,$i,'SaleType');
     $num = mysql_result($result, $i, 'Quantity');
     $url = mysql_result($result,$i,'URL');
-    $key = mysql_result($result,$i,'key');
+    $key = mysql_result($result,$i,'ID');
     if($avail == 'on'){
     	$check = "checked='yes'";
     }else{
@@ -55,7 +55,7 @@ for($i=0;$i<$numrows;$i++){
     	$offer = '';
     }
     echo "<form action='update.php' method='post'>";
-	echo "Item: $name Cost: \$$price  Quantity:<input type='text' size='2' name='quantity' value ='$num'> For Sale: <input type='checkbox' name='checkbox' $check> Best Offer:<input type='checkbox' name='offer' $offer><input type='hidden' name='toUpdate' value ='$name'><input type='hidden' name='key' value='$key'><input type='hidden' name='url' value='$url'><input type='submit' name='button' value='Update'> <input type='submit' name='button' value='Remove'> <br>";
+	echo "Item: $name Cost: \$$price  Quantity:<input type='text' size='2' name='quantity' value ='$num'> For Sale: <input type='checkbox' name='checkbox' $check> Best Offer:<input type='checkbox' name='offer' $offer><input type='hidden' name='toUpdate' value ='$name'><input type='hidden' name='ID' value='$key'><input type='hidden' name='url' value='$url'><input type='submit' name='button' value='Update'> <input type='submit' name='button' value='Remove'> <br>";
     echo "</form>";
 }
 

@@ -9,7 +9,7 @@ $action = $_POST['button'];
 $offer = $_POST['offer'];
 $num = $_POST['quantity'];
 $url = $_POST['url'];
-$key = $_POST['key'];
+$key = $_POST['ID'];
 echo $checkbox;
 if($checkbox =="on"){
 	$forSale =  "";
@@ -25,10 +25,10 @@ if($offer=='on'){
 mysql_connect($mysql_host,$mysql_user,$mysql_password);
 @mysql_select_db($mysql_database);
 if($action == 'Update'){
-	$query = "UPDATE items SET Available='$checkbox', Quantity='$num', SaleType='$offer' WHERE Name='$toUpdate' AND key='$key'";
+	$query = "UPDATE items SET Available='$checkbox', Quantity='$num', SaleType='$offer' WHERE Name='$toUpdate' AND ID='$key'";
 	//echo $query;
 }else if ($action == 'Remove'){
-	$query = "DELETE FROM items WHERE Name='$toUpdate' AND key='$key'";
+	$query = "DELETE FROM items WHERE Name='$toUpdate' AND ID='$key'";
 	unlink('images/'.$url);
 	echo "Deleted " . $url;
 }else{
