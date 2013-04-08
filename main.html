@@ -14,9 +14,9 @@ if(!isset($_SESSION['user'])){
 }
 $perm = $_SESSION['permission'];
 if($perm==1){
-	echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a></p>";
+	echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
 }else{
-	echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a></p>";
+	echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
 }
 
 
