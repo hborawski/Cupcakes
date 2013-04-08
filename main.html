@@ -7,8 +7,9 @@
 </head>
 
 <?php include 'display.php';
+include 'CONST.php';
 session_start();
-if(!isset($_SESSION['user']){
+if(!isset($_SESSION['user'])){
 	header("location:index.html");
 }
 $perm = $_SESSION['permission'];
@@ -18,10 +19,6 @@ if($perm==1){
 	echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a></p>";
 }
 
-$mysql_host = "mysql4.000webhost.com";
-$mysql_database = "a7821088_items";
-$mysql_user = "a7821088_manager";
-$mysql_password = "cupcakes1";
 
 $display = new tableBuilder();
 mysql_connect($mysql_host,$mysql_user,$mysql_password);

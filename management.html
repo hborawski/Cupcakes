@@ -11,10 +11,7 @@ if(!isset($_SESSION['permission'])){
 	header("location:main.html");
     }
 
-$mysql_host = "mysql4.000webhost.com";
-$mysql_database = "a7821088_items";
-$mysql_user = "a7821088_manager";
-$mysql_password = "cupcakes1";
+include 'CONST.php';
 
 mysql_connect($mysql_host,$mysql_user,$mysql_password);
 @mysql_select_db($mysql_database);

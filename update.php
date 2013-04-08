@@ -1,9 +1,6 @@
 <?php
 
-$mysql_host = "mysql4.000webhost.com";
-$mysql_database = "a7821088_items";
-$mysql_user = "a7821088_manager";
-$mysql_password = "cupcakes1";
+include "CONST.php";
 
 
 $toUpdate=$_POST['toUpdate'];
