@@ -17,7 +17,19 @@
       }
 
       /* The white background content wrapper */
-      .container > .content {
+      .container-fluid > .content {
+        background-color: #fff;
+        padding: 20px;
+		margin: 0 100px; 
+        -webkit-border-radius: 10px 10px 10px 10px;
+           -moz-border-radius: 10px 10px 10px 10px;
+                border-radius: 10px 10px 10px 10px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+      }
+	  
+	  .container > .content {
         background-color: #fff;
         padding: 20px;
 		margin: 0 100px; 
@@ -30,7 +42,7 @@
       }
 
 	  .login-form {
-		margin-left: 65px;
+		margin-left: 45px;
 	  }
 	
 	  legend {
@@ -50,10 +62,50 @@
 			<p>My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen: we go in there, and that nigga Winston or anybody else is in there, you the first motherfucker to get shot. You understand? </p>
 			<div class="row-fluid">
 				<div class="span1 pull-right">
-					<a href="login.html" class="btn btn-small btn-danger" type="button">Agree</a>
+					<!-- Trigger login modal dialog -->
+					<a href="#loginModal" class="btn btn-small btn-danger" type="button" data-toggle="modal">Agree</a>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- Modal -->
+	<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="myModalLabel">Login</h3>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+				<div class="content">
+					<div class="row">
+					<div class="login-form">
+						<form action="check.php" method="post">
+							<!-- Zero for user login -->
+							<input name="type" type="hidden" value="0">
+							<fieldset>
+								<div class="clearfix">
+									<input type="email" name="email" placeholder="aaa####@rit.edu" required>
+								</div>
+								<div class="clearfix">
+									<input type="password" name="password" placeholder="Password" required>
+								</div>
+								<button class="btn btn-primary" type="submit">
+									Sign in
+								</button>
+								<a class="btn btn-primary" href="create.html" style="margin-left: 23px">
+									Create Account
+								</a>
+							</fieldset>
+						</form>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
