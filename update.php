@@ -25,10 +25,10 @@ if($offer=='on'){
 mysql_connect($mysql_host,$mysql_user,$mysql_password);
 @mysql_select_db($mysql_database);
 if($action == 'Update'){
-	$query = "UPDATE forSale SET Available='$checkbox', Quantity='$num', SaleType='$offer' WHERE Name='$toUpdate' AND ID='$key'";
+	$query = "UPDATE items SET Available='$checkbox', Quantity='$num', SaleType='$offer' WHERE Name='$toUpdate' AND key='$key'";
 	//echo $query;
 }else if ($action == 'Remove'){
-	$query = "DELETE FROM forSale WHERE Name='$toUpdate' AND ID='$key'";
+	$query = "DELETE FROM items WHERE Name='$toUpdate' AND key='$key'";
 	unlink('images/'.$url);
 	echo "Deleted " . $url;
 }else{
@@ -40,6 +40,6 @@ echo $action;
 mysql_query($query);
 
 mysql_close();
-header("location:management.html");
+//header("location:management.html");
 
 ?>
