@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>View</title>
+<link rel="stylesheet" href="css.css" />
+</head>
+
+<?php include 'display.php';
+session_start();
+if(!isset($_SESSION['user']){
+	header("location:index.html");
+}
+$perm = $_SESSION['permission'];
+if($perm==1){
+	echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a></p>";
+}else{
+	echo "<p align='center'> <a href='login.php'> Login</a>   <a href='request.php'> Request </a></p>";
+}
+
+$mysql_host = "mysql4.000webhost.com";
+$mysql_database = "a7821088_items";
+$mysql_user = "a7821088_manager";
+$mysql_password = "cupcakes1";
+
+$display = new tableBuilder();
+mysql_connect($mysql_host,$mysql_user,$mysql_password);
+@mysql_select_db($mysql_database);
+$result = mysql_query("SELECT * FROM forSale");
+$display->build($result);
+
+mysql_close();
+
+
+
+
+
+?>
+<body>
+</body>
+</html>
