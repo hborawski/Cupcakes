@@ -26,10 +26,6 @@ mysql_connect($mysql_host,$mysql_user,$mysql_password);
 @mysql_select_db($mysql_database);
 if($action == 'Update'){
 	$query = "UPDATE items SET Available='$checkbox', Quantity='$num', SaleType='$offer' WHERE Name='$toUpdate' AND key='$key'";
-	$query2 = "SELECT * FROM items";
-	$result = mysql_query($result);
-	$test = mysql_result($result, 0);
-	echo "$test";
 	//echo $query;
 }else if ($action == 'Remove'){
 	$query = "DELETE FROM items WHERE Name='$toUpdate' AND key='$key'";
