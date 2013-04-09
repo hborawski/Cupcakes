@@ -16,7 +16,7 @@
 	if($users ==0){
 		$insert = "INSERT INTO users (Email, Password, Time, Confirmed, Hash), VALUES($email, $password, $time, 0 $hash)";
 		mysql_query($insert);
-		$message = "Confirmation link: picsdev.net84.net/confirm.php?hash=" . $hash;
+		$message = "Confirmation link: " . $confirmationUrl . $hash;
 		mail($email, "", $message, "Cupcakes");
 	}else{
 		//Failure indicates that the email already exists in the database
