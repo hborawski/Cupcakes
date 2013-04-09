@@ -12,6 +12,6 @@
 	$result = mysql_query($query) or die("No Such User");
 
 
-
+	header("location:index.html");
 
 ?>
