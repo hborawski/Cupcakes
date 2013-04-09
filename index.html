@@ -83,10 +83,10 @@
 							<input name="type" type="hidden" value="0">
 							<fieldset>
 								<div class="clearfix">
-									<input type="email" name="email" placeholder="aaa####@rit.edu" autofocus="autofocus" required>
+									<input id="email" type="email" name="email" placeholder="aaa####@rit.edu" autofocus="autofocus" required>
 								</div>
 								<div class="clearfix">
-									<input type="password" name="password" placeholder="Password" required>
+									<input id="password" type="password" name="password" placeholder="Password" required>
 								</div>
 								<button class="btn btn-primary" type="submit" onclick="validLogin()" id="signin">
 									Sign in
@@ -108,10 +108,8 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		function validLogin(){
-			console.log("Sup nigga");
 			  var email=$('#email').val();
 			  var password=$('#password').val();
-
 			  var dataString = 'email=' + email + '&password='+ password + '&type=0';
 			  $.ajax({
 			  type: "POST",
