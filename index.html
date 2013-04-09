@@ -123,7 +123,7 @@
 					if (result=='correct') {
 						window.location = '/main.html';
 					} else {
-						bootstrap_alert.warning('<strong>Warning!</strong>');
+						bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
 					}
 				}
 			});
@@ -136,7 +136,7 @@
 		
 		bootstrap_alert = function() {}
 		bootstrap_alert.warning = function(message) {
-			$('#alert-placeholder').html('<div class="alert fade in"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+			$('#alert-placeholder').html('<div class="alert alert-error fade in"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 		}
 	</script>
 </body>
