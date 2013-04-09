@@ -1,4 +1,4 @@
-PICS
+Cupcakes
 ====
 
 Product Inventory Control System

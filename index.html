@@ -2,11 +2,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>
-		Disclaimer
-	</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+	<title>Cupcakes</title>
 	<style type="text/css">
 	/* Override some defaults */
 	html, body {
@@ -153,6 +151,22 @@
 		var createPasswordVerify = $('#createPasswordVerify').val();
 		if (createEmail == createEmailVerify) {
 			if (createPassword == createPasswordVerify) {
+				var dataString = 'email=' + createEmail + '&password=' + createPassword;
+				$.ajax({
+					type: "POST",
+					url: "newUser.php",
+					data: dataString,
+					cache: false,
+					success: function(result) {
+						var result = trim(result);
+						$("#flash").hide();
+						if (result == 'success') {
+							createAlert('login-alert-placeholder', 'success', '<strong>Hey!</strong> Check your username and password!');
+						} else {
+							createAlert('login-alert-placeholder', 'error', '<strong>Uh oh!</strong> That email address has already been taken!');
+						}
+					}
+				});
 			} else {
 				var createPassword = document.getElementById("createPassword");
 				var createPasswordVerify = document.getElementById("createPasswordVerify");
