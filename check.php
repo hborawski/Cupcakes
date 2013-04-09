@@ -24,7 +24,7 @@ if ($loginType == 1){
 	@mysql_select_db($mysql_database);
 	$confirm = 1;
 	$query = "SELECT * FROM users WHERE Email='$user' AND Password='$pass'";
-
+	$result = mysql_query($query) or die("No such user");
 	$count = mysql_num_rows($result);
 	if($count ==1){
 		session_start();
