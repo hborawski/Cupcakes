@@ -7,50 +7,50 @@
 	</title>
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-		<style type="text/css">
-      /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px; 
-      }
+	<style type="text/css">
+	/* Override some defaults */
+	html, body {
+		background-color: #eee;
+	}
+	body {
+		padding-top: 40px; 
+	}
 
-      /* The white background content wrapper */
-      .container-fluid > .content {
-        background-color: #fff;
-        padding: 20px;
+	/* The white background content wrapper */
+	.container-fluid > .content {
+		background-color: #fff;
+		padding: 20px;
 		margin: 0 100px; 
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
-	  
-	  .container > .content {
-        background-color: #fff;
-        padding: 20px;
-		margin: 0 100px; 
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
+		-webkit-border-radius: 10px 10px 10px 10px;
+		-moz-border-radius: 10px 10px 10px 10px;
+		border-radius: 10px 10px 10px 10px;
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	}
 
-	  .login-form {
+	.container > .content {
+		background-color: #fff;
+		padding: 20px;
+		margin: 0 100px; 
+		-webkit-border-radius: 10px 10px 10px 10px;
+		-moz-border-radius: 10px 10px 10px 10px;
+		border-radius: 10px 10px 10px 10px;
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	}
+
+	.login-form {
 		margin-left: 45px;
-	  }
+	}
 	
-	  legend {
+	legend {
 		margin-right: -50px;
 		font-weight: bold;
-	  	color: #404040;
-	  }
-    </style>
+		color: #404040;
+	}
+	</style>
 </head>
 <body>
 	<div class="container">
@@ -79,65 +79,64 @@
 				<div class="content">
 					<div class="row">
 						<div class="login-form">
-							<!-- Zero for user login -->
-							<input name="type" type="hidden" value="0">
-							<fieldset>
-								<div class="clearfix">
-									<input id="email" type="email" name="email" placeholder="aaa####@rit.edu" autofocus="autofocus" required>
-								</div>
-								<div class="clearfix">
-									<input id="password" type="password" name="password" placeholder="Password" required>
-								</div>
-								<button class="btn btn-primary" type="submit" onclick="validLogin()" id="signin">
-									Sign in
-								</button>
-								<a class="btn btn-primary" href="create.html" style="margin-left: 23px">
-									Create Account
-								</a>
-							</fieldset>
+							<form>
+								<fieldset>
+									<div class="clearfix">
+										<input id="email" type="email" name="email" placeholder="aaa####@rit.edu" autofocus="autofocus" required>
+									</div>
+									<div class="clearfix">
+										<input id="password" type="password" name="password" placeholder="Password" required>
+									</div>
+									<button class="btn btn-primary" type="submit" onclick="validLogin()" id="signin">
+										Sign in
+									</button>
+									<a class="btn btn-primary" href="create.html" style="margin-left: 23px">
+										Create Account
+									</a>
+								</fieldset>
+							</form>
 						</div>
 					</div>
 				</div>
 				<div id="alert-placeholder" style="margin-top: 15px;"></div>
 			</div>
 		</div>
-		<div class="modal-footer">
-		</div>
+		<div class="modal-footer"></div>
 	</div>
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-		function validLogin(){
-			var email=$('#email').val();
-			var password=$('#password').val();
-			var dataString = 'email=' + email + '&password='+ password + '&type=0';
-			$.ajax({
-				type: "POST",
-				url: "check.php",
-				data: dataString,
-				cache: false,
-				success: function(result){
-					var result = trim(result);
-					$("#flash").hide();
-					console.log(result);
-					if (result=='correct') {
-						window.location = '/main.html';
-					} else {
-						bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
-					}
+	function validLogin(){
+		var email=$('#email').val();
+		var password=$('#password').val();
+		var dataString = 'email=' + email + '&password='+ password + '&type=0';
+		$.ajax({
+			type: "POST",
+			url: "check.php",
+			data: dataString,
+			cache: false,
+			success: function(result){
+				var result = trim(result);
+				$("#flash").hide();
+				console.log(result);
+				if (result=='correct') {
+					window.location = '/main.html';
+				} else {
+					bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
 				}
-			});
-		}
-		
-		function trim(str){
-			var str=str.replace(/^\s+|\s+$/,'');
-			return str;
-		}
-		
-		bootstrap_alert = function() {}
-		bootstrap_alert.warning = function(message) {
-			$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
-		}
+			}
+		});
+	}
+
+	function trim(str){
+		var str=str.replace(/^\s+|\s+$/,'');
+		return str;
+	}
+
+	bootstrap_alert = function() {}
+	bootstrap_alert.warning = function(message) {
+		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
+	}
 	</script>
 </body>
 </html>

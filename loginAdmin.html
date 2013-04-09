@@ -6,40 +6,40 @@
 	<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
 	<title>Login</title>
 	<style type="text/css">
-      /* Override some defaults */
-      html, body {
-        background-color: #eee;
-      }
-      body {
-        padding-top: 40px; 
-      }
-      .container {
-        width: 300px;
-      }
+	/* Override some defaults */
+	html, body {
+		background-color: #eee;
+	}
+	body {
+		padding-top: 40px; 
+	}
+	.container {
+		width: 300px;
+	}
 
-      /* The white background content wrapper */
-      .container > .content {
-        background-color: #fff;
-        padding: 20px;
-        margin: 0 -20px; 
-        -webkit-border-radius: 10px 10px 10px 10px;
-           -moz-border-radius: 10px 10px 10px 10px;
-                border-radius: 10px 10px 10px 10px;
-        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-                box-shadow: 0 1px 2px rgba(0,0,0,.15);
-      }
+	/* The white background content wrapper */
+	.container > .content {
+		background-color: #fff;
+		padding: 20px;
+		margin: 0 -20px; 
+		-webkit-border-radius: 10px 10px 10px 10px;
+		-moz-border-radius: 10px 10px 10px 10px;
+		border-radius: 10px 10px 10px 10px;
+		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+		box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	}
 
-	  .login-form {
+	.login-form {
 		margin-left: 65px;
-	  }
+	}
 	
-	  legend {
+	legend {
 		margin-right: -50px;
 		font-weight: bold;
-	  	color: #404040;
-	  }
-    </style>
+		color: #404040;
+	}
+	</style>
 </head>
 <body>
 	<div class="container-fluid">
@@ -50,17 +50,15 @@
 						<h2>
 							Login
 						</h2>
-						<form action="check.php" method="post">
-							<!-- One for admin login -->
-							<input name="type" type="hidden" value="1">
+						<form>
 							<fieldset>
 								<div class="clearfix">
-									<input type="email" name="email" placeholder="aaa####@rit.edu" required>
+									<input id="email" type="email" name="email" placeholder="aaa####@rit.edu" autofocus="autofocus" required>
 								</div>
 								<div class="clearfix">
-									<input type="password" name="password" placeholder="Password" required>
+									<input id="password" type="password" name="password" placeholder="Password" required>
 								</div>
-								<button class="btn btn-primary" type="submit">
+								<button class="btn btn-primary" onclick="validLogin()" type="submit">
 									Sign in
 								</button>
 							</fieldset>
@@ -69,6 +67,42 @@
 				</div>
 			</div>
 		</div>
+		<div id="alert-placeholder" style="margin-top: 15px;"></div>
 	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript">
+	function validLogin(){
+		var email = $('#email').val();
+		var password = $('#password').val();
+		var dataString = 'email=' + email + '&password=' + password + '&type=1';
+		$.ajax({
+			type: "POST",
+			url: "check.php",
+			data: dataString,
+			cache: false,
+			success: function(result) {
+				var result = trim(result);
+				$("#flash").hide();
+				console.log(result);
+				if (result == 'correct') {
+					window.location = '/management.html';
+				} else {
+					bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
+				}
+			}
+		});
+	}
+	
+	function trim(str){
+		var str=str.replace(/^\s+|\s+$/,'');
+		return str;
+	}
+	
+	bootstrap_alert = function() {}
+	bootstrap_alert.warning = function(message) {
+		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
+	}
+	</script>
 </body>
 </html>
