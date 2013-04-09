@@ -216,6 +216,10 @@
 				if (result == 'correct') {
 					window.location = '/main.html';
 				} else {
+					var passwordForm = document.getElementById("password");
+					var emailForm = document.getElementById("email");
+					emailForm.value = "";
+					passwordForm.value = "";
 					createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
 				}
 			}

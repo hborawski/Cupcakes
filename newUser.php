@@ -10,7 +10,18 @@
 
 	$query = "SELECT * FROM users WHERE Email='$email'";
 	$users = mysql_num_rows(mysql_query($query));
-
+	
+	/*
+	 * Return Types
+	 * ------------
+	 * 0 - indicates account creation success and email sent successfully
+	 * 1 - indicates account already created
+	 * 2 - indicates email fields don't match
+	 * 3 - indicates password fields don't match
+	 * 4 - indicates email and password fields both don't match (may not need this, idk)
+	 * 5 - indicates non-RIT email (use some regex to determine this?)
+	 * n - any other possible issue you can think of that we need to handle
+	 */
 	//Returns failure or success
 	$returnVal = "success";
 	if($users ==0){
