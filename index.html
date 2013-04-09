@@ -79,7 +79,7 @@
 				<div class="content">
 					<div class="row">
 					<div class="login-form">
-						<form action="check.php" method="post">
+						<!-- <form action="check.php" method="post"> -->
 							<!-- Zero for user login -->
 							<input name="type" type="hidden" value="0">
 							<fieldset>
@@ -96,7 +96,7 @@
 									Create Account
 								</a>
 							</fieldset>
-						</form>
+						<!-- </form> -->
 					</div>
 					</div>
 				</div>
@@ -121,7 +121,7 @@
 			  success: function(result){
 					   var result = trim(result);
 					   $("#flash").hide();
-					   if (result=='true') {
+					   if (result=='1') {
 							 window.location = 'main.html';
 					   } else {
 					   }
