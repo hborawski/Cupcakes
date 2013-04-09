@@ -68,7 +68,7 @@
 			</div>
 		</div>
 	</div>
-	<!-- Modal -->
+	<!-- Login Modal -->
 	<div id="loginModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -86,17 +86,47 @@
 								<div class="clearfix">
 									<input id="password" type="password" name="password" placeholder="Password" required>
 								</div>
-								<button class="btn btn-primary" type="submit" onclick="validLogin()" id="signin">
+								<button class="btn btn-primary" type="submit" onclick="verifyLogin()" id="signin">
 									Sign in
 								</button>
-								<a class="btn btn-primary" href="create.html" style="margin-left: 23px">
+								<button class="btn btn-primary" type="button" onclick="showCreateAccountModal()" style="margin-left: 23px">
 									Create Account
-								</a>
+								</button>
 							</fieldset>
 						</div>
 					</div>
 				</div>
-				<div id="alert-placeholder"></div>
+				<div id="login-alert-placeholder"></div>
+			</div>
+		</div>
+		<div class="modal-footer"></div>
+	</div>
+	<!-- Create Account Modal -->
+	<div id="createAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+			<h3 id="createAccountModalLabel">Create Account</h3>
+		</div>
+		<div class="modal-body">
+			<div class="container-fluid">
+				<div class="content">
+					<div class="row" style="margin-left: -30px">
+						<div class="login-form">
+							<fieldset>
+								<div class="clearfix">
+									<input id="createEmail" type="email" name="email" placeholder="RIT Email" autofocus="autofocus" required>
+									<input id="createEmailVerify" type="email" name="email" placeholder="Verify Email" autofocus="autofocus" required>
+									<input id="createPassword" type="password" name="password" placeholder="Choose Password" required>
+									<input id="createPasswordVerify" type="password" name="password" placeholder="Verify Password" required>
+									<button class="btn btn-primary" type="submit" onclick="createAccount()">
+										Create Account
+									</button>
+								</div>
+							</fieldset>
+						</div>
+					</div>
+				</div>
+				<div id="create-alert-placeholder"></div>
 			</div>
 		</div>
 		<div class="modal-footer"></div>
@@ -104,7 +134,51 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	function validLogin() {
+	function showCreateAccountModal() {
+		$('#loginModal').modal('hide');
+		$('#createAccountModal').modal('show');
+	}
+	
+	<!-- Autofocus create account modal -->	
+	$(document).ready(function() {
+	    $("#createAccountModal").on('shown', function() {
+	        $(this).find("[autofocus]:first").focus();
+	    });
+	});
+	
+	function createAccount() {
+		var createEmail = $('#createEmail').val();
+		var createEmailVerify = $('#createEmailVerify').val();
+		var createPassword = $('#createPassword').val();
+		var createPasswordVerify = $('#createPasswordVerify').val();
+		if (createEmail == createEmailVerify) {
+			if (createPassword == createPasswordVerify) {
+			} else {
+				var createPassword = document.getElementById("createPassword");
+				var createPasswordVerify = document.getElementById("createPasswordVerify");
+				createPassword.value = "";
+				createPasswordVerify.value = "";
+				createPassword.focus();
+				createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your passwords don\'t seem to match!');
+			}
+		} else {
+			var createEmail = document.getElementById("createEmail");
+			var createEmailVerify = document.getElementById("createEmailVerify");
+			createEmail.value = "";
+			createEmailVerify.value = "";
+			createEmail.focus();
+			createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your emails don\'t seem to match!');
+		}
+	}
+	
+	<!-- Autofocus login modal -->
+	$(document).ready(function() {
+	    $("#loginModal").on('shown', function() {
+	        $(this).find("[autofocus]:first").focus();
+	    });
+	});
+	
+	function verifyLogin() {
 		var email = $('#email').val();
 		var password = $('#password').val();
 		var dataString = 'email=' + email + '&password=' + password + '&type=0';
@@ -119,30 +193,21 @@
 				if (result == 'correct') {
 					window.location = '/main.html';
 				} else {
-					bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
+					createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
 				}
 			}
 		});
 	}
 
+	<!-- General Functions -->
+	function createAlert(tag, type, message) {
+		$('#' + tag).html('<div class="alert alert-' + type + ' fade in" style="margin-top: 15px; margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+	}
+	
 	function trim(str){
 		var str = str.replace(/^\s+|\s+$/,'');
 		return str;
 	}
-
-	bootstrap_alert = function() {}
-	bootstrap_alert.warning = function(message) {
-		var password = document.getElementById("password");
-		password.value = "";
-		password.focus();
-		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-top: 15px; margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
-	}
-
-	$(document).ready(function() {
-	    $("#loginModal").on('shown', function() {
-	        $(this).find("[autofocus]:first").focus();
-	    });
-	});
 	</script>
 </body>
 </html>
