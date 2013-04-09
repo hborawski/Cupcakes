@@ -14,7 +14,7 @@
 	//Returns failure or success
 	$returnVal = "success";
 	if($users ==0){
-		$query = "INSERT INTO users (Email, Password, Time, Confirmed, Hash), VALUES('$email', '$password', '$time', '0', '$hash')";
+		$query = "INSERT INTO users (Email, Password, Time, Confirmed, Hash) VALUES('$email', '$password', '$time', '0', '$hash')";
 		mysql_query($query);
 		$message = "Confirmation link: " . $confirmationUrl . $hash;
 		mail($email, "Cupcakes Confirmation", $message, "Cupcakes");
