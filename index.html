@@ -98,7 +98,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="alert-placeholder" style="margin-top: 15px; margin-bottom: 0px"></div>
+				<div id="alert-placeholder" style="margin-top: 15px;"></div>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -136,7 +136,7 @@
 		
 		bootstrap_alert = function() {}
 		bootstrap_alert.warning = function(message) {
-			$('#alert-placeholder').html('<div class="alert alert-error fade in"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
+			$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 		}
 	</script>
 </body>
