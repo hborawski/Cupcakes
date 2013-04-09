@@ -164,6 +164,15 @@
 							createAlert('create-alert-placeholder', 'success', '<strong>Success!</strong> Click the link in the validation email to continue.');
 						} else {
 							createAlert('create-alert-placeholder', 'error', '<strong>Uh oh!</strong> That email address has already been taken!');
+							var createPasswordForm = document.getElementById("createPassword");
+							var createPasswordVerifyForm = document.getElementById("createPasswordVerify");
+							var createEmailForm = document.getElementById("createEmail");
+							var createEmailVerifyForm = document.getElementById("createPasswordVerify");
+							createEmailForm.value = "";
+							createEmailVerifyForm.value = "";
+							createPasswordForm.value = "";
+							createPasswordVerifyForm.value = "";
+							
 						}
 					}
 				});
