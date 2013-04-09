@@ -22,4 +22,6 @@
 		//Failure indicates that the email already exists in the database
 		$returnVal = "failure";
 	}
+
+	echo "$returnVal";
 ?>
