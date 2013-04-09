@@ -95,10 +95,10 @@
 									Create Account
 								</a>
 							</fieldset>
-							<div id="alert-placeholder"></div>
 						</div>
 					</div>
 				</div>
+				<div id="alert-placeholder" style="margin-top: 10px"></div>
 			</div>
 		</div>
 		<div class="modal-footer">
@@ -108,36 +108,36 @@
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
 		function validLogin(){
-			  var email=$('#email').val();
-			  var password=$('#password').val();
-			  var dataString = 'email=' + email + '&password='+ password + '&type=0';
-			  $.ajax({
-			  type: "POST",
-			  url: "check.php",
-			  data: dataString,
-			  cache: false,
-			  success: function(result){
-					   var result = trim(result);
-					   $("#flash").hide();
-					   console.log(result);
-					   if (result=='correct') {
-							 window.location = '/main.html';
-					   } else {
-							bootstrap_alert.warning('<strong>Warning!</strong>');
-					   }
-			  }
-			  });
+			var email=$('#email').val();
+			var password=$('#password').val();
+			var dataString = 'email=' + email + '&password='+ password + '&type=0';
+			$.ajax({
+				type: "POST",
+				url: "check.php",
+				data: dataString,
+				cache: false,
+				success: function(result){
+					var result = trim(result);
+					$("#flash").hide();
+					console.log(result);
+					if (result=='correct') {
+						window.location = '/main.html';
+					} else {
+						bootstrap_alert.warning('<strong>Warning!</strong>');
+					}
+				}
+			});
 		}
 		
 		function trim(str){
-			 var str=str.replace(/^\s+|\s+$/,'');
-			 return str;
+			var str=str.replace(/^\s+|\s+$/,'');
+			return str;
 		}
 		
 		bootstrap_alert = function() {}
 		bootstrap_alert.warning = function(message) {
-            $('#alert-placeholder').html('<div class="alert fade in"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
-        }
+			$('#alert-placeholder').html('<div class="alert fade in"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+		}
 	</script>
 </body>
 </html>
