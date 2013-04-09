@@ -23,7 +23,7 @@ if ($loginType == 1){
 }elseif($loginType==0){
 	@mysql_select_db($mysql_database);
 	$confirm = 1;
-	$query = "SELECT * FROM users WHERE Email='$user' AND Password='$pass'";
+	$query = "SELECT * FROM users WHERE Email='$user' AND Password='$pass' AND Confirmed='$confirm'";
 	$result = mysql_query($query) or die("No such user");
 	$count = mysql_num_rows($result);
 	if($count ==1){
