@@ -104,20 +104,19 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	function validLogin(){
-		var email=$('#email').val();
-		var password=$('#password').val();
-		var dataString = 'email=' + email + '&password='+ password + '&type=0';
+	function validLogin() {
+		var email = $('#email').val();
+		var password = $('#password').val();
+		var dataString = 'email=' + email + '&password=' + password + '&type=0';
 		$.ajax({
 			type: "POST",
 			url: "check.php",
 			data: dataString,
 			cache: false,
-			success: function(result){
+			success: function(result) {
 				var result = trim(result);
 				$("#flash").hide();
-				console.log(result);
-				if (result=='correct') {
+				if (result == 'correct') {
 					window.location = '/main.html';
 				} else {
 					bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
@@ -127,12 +126,14 @@
 	}
 
 	function trim(str){
-		var str=str.replace(/^\s+|\s+$/,'');
+		var str = str.replace(/^\s+|\s+$/,'');
 		return str;
 	}
 
 	bootstrap_alert = function() {}
 	bootstrap_alert.warning = function(message) {
+		$('#email').reset();
+		$('password').reset();
 		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 	}
 	</script>

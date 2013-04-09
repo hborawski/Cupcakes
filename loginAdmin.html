@@ -99,6 +99,8 @@
 	
 	bootstrap_alert = function() {}
 	bootstrap_alert.warning = function(message) {
+		$('#email').reset();
+		$('password').reset();
 		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 	}
 	</script>
