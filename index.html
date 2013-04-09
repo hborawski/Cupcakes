@@ -78,8 +78,7 @@
 			<div class="container-fluid">
 				<div class="content">
 					<div class="row">
-					<div class="login-form">
-						<!-- <form action="check.php" method="post"> -->
+						<div class="login-form">
 							<!-- Zero for user login -->
 							<input name="type" type="hidden" value="0">
 							<fieldset>
@@ -89,15 +88,15 @@
 								<div class="clearfix">
 									<input type="password" name="password" placeholder="Password" required>
 								</div>
-								<button class="btn btn-primary" type="submit" onclick="validLogin()">
+								<button class="btn btn-primary" type="submit" onclick="validLogin()" id="signin">
 									Sign in
 								</button>
 								<a class="btn btn-primary" href="create.html" style="margin-left: 23px">
 									Create Account
 								</a>
 							</fieldset>
-						<!-- </form> -->
-					</div>
+							<div id="alert-placeholder"></div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -123,9 +122,10 @@
 					   var result = trim(result);
 					   $("#flash").hide();
 					   console.log(result);
-					   if (result=='true') {
-							 window.location = 'main.html';
+					   if (result=='correct') {
+							 window.location = '/main.html';
 					   } else {
+							bootstrap_alert.warning('<strong>Warning!</strong>');
 					   }
 			  }
 			  });
@@ -136,9 +136,10 @@
 			 return str;
 		}
 		
-		function showLoginAlert() {
-			
-		}
+		bootstrap_alert = function() {}
+		bootstrap_alert.warning = function(message) {
+            $('#alert-placeholder').html('<div class="alert fade in"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+        }
 	</script>
 </body>
 </html>
