@@ -96,7 +96,7 @@
 						</div>
 					</div>
 				</div>
-				<div id="alert-placeholder" style="margin-top: 15px;"></div>
+				<div id="alert-placeholder"></div>
 			</div>
 		</div>
 		<div class="modal-footer"></div>
@@ -135,7 +135,7 @@
 		var password = document.getElementById("password");
 		password.value = "";
 		password.focus();
-		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
+		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-top: 15px; margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 	}
 
 	$(document).ready(function() {
