@@ -132,12 +132,17 @@
 
 	bootstrap_alert = function() {}
 	bootstrap_alert.warning = function(message) {
-		var email = document.getElementById("email");
-		email.value = "";
 		var password = document.getElementById("password");
 		password.value = "";
+		password.focus();
 		$('#alert-placeholder').html('<div class="alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
 	}
+
+	$(document).ready(function() {
+	    $("#loginModal").on('shown', function() {
+	        $(this).find("[autofocus]:first").focus();
+	    });
+	});
 	</script>
 </body>
 </html>
