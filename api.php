@@ -5,6 +5,40 @@
 
 
 	$func = $_POST['function'];
+	mysql_connect($mysql_host, $mysql_user, $mysql_password);
+	@mysql_select_db($mysql_database);
+	switch ($func){
+		case "newUser":
+			$email = mysql_real_escape_string($_POST['email']);
+			$verifyEmail = mysql_real_escape_string($_POST['verifyEmail']);
+			$password = mysql_real_escape_string($_POST['password']);
+			$verifyPassword = mysql_real_escape_string($_POST['verifyPassword']);
+			newUser($email, $verifyEmail,$password,$verifyPassword);
+			break;
+		case "newItem":
+			$name = mysql_real_escape_string($_POST['email']);
+			$description = mysql_real_escape_string($_POST['description']);
+			$price = mysql_real_escape_string($_POST['price']);
+			$available = mysql_real_escape_string($_POST['available']);
+			$quantity = mysql_real_escape_string($_POST['quantity']);
+			$uploadedFile = mysql_real_escape_string($_POST['uploadedFile']);
+			$filename = mysql_real_escape_string($_POST['filename']);
+			newItem($name,$description,$price,$available,$quantity,$uploadedFile,$filename);
+			break;
+		case "logout":
+			logout();
+			break;
+		case "sendMail":
+			$from = mysql_real_escape_string($_POST['from']);
+			$subject = mysql_real_escape_string($_POST['subject']);
+			$message = mysql_real_escape_string($_POST['message']);
+			sendMail($from, $subject, $message);
+			break;
+		case "login":
+			$userName = mysql_real_escape_string($_POST['email']);
+			$password = mysql_real_escape_string($_POST['password']);
+			break;
+	}
 
 
 
@@ -53,9 +87,10 @@
 	}
 
 
-	function newItem($user,$name,$description, $price,$available,$quantity,$uploadedFile,$filename){
+	function newItem($name,$description,$price,$available,$quantity,$uploadedFile,$filename){
 		$url = $filename;
 		$return = 0;
+		$user = $_SESSION['userName'];
 		if(strlen($description)>500){
 			$return = -1;
 		}else{
@@ -78,6 +113,7 @@
 		session_start();
 		if(isset($_SESSION['permission'])){
 			unset($_SESSION['permission']);
+			unset($_SESSION['userName']);
 		}
 
 
@@ -85,6 +121,7 @@
 	}
 
 	function sendMail($from, $subject, $message){
+		//Sends mail to us for item requests
 		$from = "From: ".$from;
 		mail($ourEmail, $subject,$message,$from);
 	}
@@ -106,9 +143,11 @@
 
 		if($count ==1){
 			$permission = mysql_result($result, 0,"Confirmed");
+			$userName = mysql_result($result, 0, "Email");
 			if($permission >0){
 				session_start();
 				$_SESSION['permission']= $permission;
+				$_SESSION['userName'] = $userName;
 				$return = $permission;
 			}else{
 				$return = $permission;
