@@ -1,38 +1,87 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>View</title>
-<link rel="stylesheet" href="css.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+	<title>View</title>
+	<link rel="stylesheet" href="css.css" />
 </head>
+<body style="background-image: url('img/main_bkg.png');">
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<div class="row-fluid">
+					<a class="brand" href="#" style="margin-left: -10px;"><img src="img/navbar_icon.png" class="img-rounded" style="height: auto; max-width: 20px; padding-top: 1px;"></a>
+					<ul class="nav">
+						<li class="divider-vertical"></li>
+						<li>
+							<a href="#">Home</a>
+						</li>
+						<li>
+							<a href="#">Buy</a>
+						</li>
+						<li>
+							<a href="#">Sell</a>
+						</li>
+						<li>
+							<a href="#">Request</a>
+						<li>
+							<a href="#">About</a>
+						</li>
+					</ul>
+					<ul class="nav pull-right">
+						<form class="navbar-search">
+							<input type="text" class="search-query" placeholder="Search">
+						</form>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								Account
+								<b class="caret"></b>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="">Manage Items</a>
+								</li>
+								<li>
+									<a href="#">Change Password</a>
+								</li>
+								<li class="divider"></li>
+								<li>
+									<a href="logout.php">Logout</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container-fluid" style="padding-top: 40px">
+		<?php include 'display.php';
+		include 'CONST.php';
+		session_start();
+		if(!isset($_SESSION['user'])){
+			header("location:index.html");
+		}
+		$perm = $_SESSION['permission'];
+		if($perm==1){
+			echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
+		}else{
+			echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
+		}
 
-<?php include 'display.php';
-include 'CONST.php';
-session_start();
-if(!isset($_SESSION['user'])){
-	header("location:index.html");
-}
-$perm = $_SESSION['permission'];
-if($perm==1){
-	echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
-}else{
-	echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
-}
 
+		$display = new tableBuilder();
+		mysql_connect($mysql_host,$mysql_user,$mysql_password);
+		@mysql_select_db($mysql_database);
+		$result = mysql_query("SELECT * FROM items");
+		$display->build($result);
 
-$display = new tableBuilder();
-mysql_connect($mysql_host,$mysql_user,$mysql_password);
-@mysql_select_db($mysql_database);
-$result = mysql_query("SELECT * FROM items");
-$display->build($result);
-
-mysql_close();
-
-
-
-
-
-?>
-<body>
+		mysql_close();
+		?>
+	</div>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
 </body>
 </html>
