@@ -38,6 +38,9 @@
 			$userName = mysql_real_escape_string($_POST['email']);
 			$password = mysql_real_escape_string($_POST['password']);
 			break;
+		default:
+			//if sent an unknown function name
+			echo "something went wrong";
 	}
 
 
