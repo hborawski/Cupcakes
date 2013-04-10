@@ -46,6 +46,7 @@
 
 
 	function newUser($email,$verifyEmail,$password, $verifyPassword){
+		include "CONST.php";		#Seems necessary as of now
 		/*
 		 * Return Types
 		 * ------------
@@ -91,6 +92,7 @@
 
 
 	function newItem($name,$description,$price,$available,$quantity,$uploadedFile,$filename){
+		include "CONST.php";
 		$url = $filename;
 		$return = 0;
 		$user = $_SESSION['userName'];
@@ -131,6 +133,7 @@
 
 
 	function login($userName, $password){
+		include "CONST.php";
 		/* Return values
 		* -1 indicates the user could not log in
 		* 0 - 2 indicates the permission type
