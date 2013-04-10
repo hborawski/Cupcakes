@@ -161,6 +161,7 @@
 			cache: false,
 			success: function(result) {
 				var result = trim(result);
+				console.log(result);
 				switch (result) {
 					case '0':	createAlert('create-alert-placeholder', 'success', '<strong>Success!</strong> Click the link in the validation email to continue.');
 								// Figure out how to disable forms here

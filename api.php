@@ -11,7 +11,7 @@
 		case "newUser":
 			$email = mysql_real_escape_string($_POST['email']);
 			$verifyEmail = mysql_real_escape_string($_POST['verifyEmail']);
-			$password = mysql_real_escape_string($_POST['password']);
+			$password = mysql_real_escape_string($_POST ['password']);
 			$verifyPassword = mysql_real_escape_string($_POST['verifyPassword']);
 			newUser($email, $verifyEmail,$password,$verifyPassword);
 			break;
@@ -75,13 +75,13 @@
 			mail($email, "Cupcakes Confirmation", $message, "Cupcakes");
 			mysql_close();
 			$return = 0;
-		}elseif((strcmp($email,$verifyEmail)!= 0 && (strcmp($password,$verifyPassword)!=0)){
+		}elseif((strcmp($email,$verifyEmail)!= 0) && (strcmp($password,$verifyPassword)!=0)){
 			$return = 4;
-		}elseif((strcmp($email,$verifyEmail)!=0)){
+		}elseif(strcmp($email,$verifyEmail)!=0){
 			$return = 2;
-		}elseif((strcmp($password,$verifyPassword)!=0)){
+		}elseif(strcmp($password,$verifyPassword)!=0){
 			$return = 3;
-		}elseif(){
+		}else{
 
 		}
 
