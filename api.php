@@ -45,9 +45,69 @@
 		}elseif((strcmp($password,$verifyPassword)!=0)){
 			$return = 3;
 		}elseif(){
-			
+
 		}
 
+
+		echo "$return";
+	}
+
+
+	function newItem($user,$name,$description, $price,$available,$quantity,$uploadedFile,$filename){
+		$url = $filename;
+		$return = 0;
+		if(strlen($description)>500){
+			$return = -1;
+		}else{
+			move_uploaded_file($_FILES["upload"]["tmp_name"],"images/" . $filename );
+			echo "Stored in: " . "images/" . $_FILES["upload"]["name"];
+			mysql_connect($mysql_host,$mysql_user,$mysql_password);
+			@mysql_select_db($mysql_database);
+			$query = "INSERT INTO items (Name, Description, Price, Available, SaleType, Quantity,  URL, User) VALUES('$name','$description','$price','$avail',0,'$num','$url','$user')";
+
+			mysql_query($query);
+
+			mysql_close();
+		}
+		echo "$return";
+
+
+	}
+
+	function logout(){
+		session_start();
+		if(isset($_SESSION['permission'])){
+			unset($_SESSION['permission']);
+		}elseif(isset($_SESSION['user'])){
+			unset($_SESSION['user']);
+		}
+
+		session_destroy();
+	}
+
+	function sendMail($from, $subject, $message){
+		$from = "From: ".$from;
+		mail($ourEmail, $subject,$message,$from);
+	}
+
+
+	function login($userName, $password){
+		$return = 0;
+
+		mysql_connect($mysql_host,$mysql_user,$mysql_password);
+		@mysql_select_db($mysql_database);
+		$confirm = 0;
+		$query = "SELECT * FROM users WHERE Email='$userName' AND Password='$password' AND Confirmed>'$confirm'";
+		$result = mysql_query($query);
+		$count = mysql_num_rows($result);
+
+		if($count ==1){
+			$permission = mysql_result($result, 0,"Confirmed");
+			session_start();
+			$_SESSION['permission']= $permission;
+		}else{
+			$return = -1;
+		}
 
 		echo "$return";
 	}
