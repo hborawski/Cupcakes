@@ -145,53 +145,42 @@
 	});
 	
 	function createAccount() {
+		var createPasswordForm = document.getElementById("createPassword");
+		var createEmailForm = document.getElementById("createEmail");
+		var createPasswordVerifyForm = document.getElementById("createPasswordVerify");
+		var createEmailVerifyForm = document.getElementById("createEmailVerify");
 		var createEmail = $('#createEmail').val();
 		var createEmailVerify = $('#createEmailVerify').val();
 		var createPassword = $('#createPassword').val();
 		var createPasswordVerify = $('#createPasswordVerify').val();
-		if (createEmail == createEmailVerify) {
-			if (createPassword == createPasswordVerify) {
-				var dataString = 'email=' + createEmail + '&password=' + createPassword;
-				$.ajax({
-					type: "POST",
-					url: "newUser.php",
-					data: dataString,
-					cache: false,
-					success: function(result) {
-						var result = trim(result);
-						$("#flash").hide();
-						if (result == 'success') {
-							createAlert('create-alert-placeholder', 'success', '<strong>Success!</strong> Click the link in the validation email to continue.');
-						} else {
-							createAlert('create-alert-placeholder', 'error', '<strong>Uh oh!</strong> That email address has already been taken!');
-							var createPasswordForm = document.getElementById("createPassword");
-							var createPasswordVerifyForm = document.getElementById("createPasswordVerify");
-							var createEmailForm = document.getElementById("createEmail");
-							var createEmailVerifyForm = document.getElementById("createPasswordVerify");
-							createEmailForm.value = "";
-							createEmailVerifyForm.value = "";
-							createPasswordForm.value = "";
-							createPasswordVerifyForm.value = "";
-							
-						}
-					}
-				});
-			} else {
-				var createPassword = document.getElementById("createPassword");
-				var createPasswordVerify = document.getElementById("createPasswordVerify");
-				createPassword.value = "";
-				createPasswordVerify.value = "";
-				createPassword.focus();
-				createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your passwords don\'t seem to match!');
+		var dataString = 'function=newUser&email=' + createEmail + '&verifyEmail=' + createEmailVerify + '&password=' + createPassword + '&verifyPassword=' + createPasswordVerify;
+		$.ajax({
+			type: "POST",
+			url: "api.php",
+			data: dataString,
+			cache: false,
+			success: function(result) {
+				var result = trim(result);
+				switch (result) {
+					case '0':	createAlert('create-alert-placeholder', 'success', '<strong>Success!</strong> Click the link in the validation email to continue.');
+								// Figure out how to disable forms here
+								break;
+					case '1':	createAlert('create-alert-placeholder', 'error', '<strong>Uh oh!</strong> That email address has already been taken!');
+								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+					case '2': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your emails don\'t seem to match!');
+								createEmailForm.value = ""; createEmailVerifyForm.value = ""; break;
+					case '3': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your passwords don\'t seem to match!');
+								createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+					case '4': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Looks like neither your emails nor your passwords match!');
+								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+					case '5': createAlert('create-alert-placeholder', 'error', '<strong>Sorry!</strong> This application is only available to RIT students for now.');
+								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+					default: createAlert('create-alert-placeholder', 'error', '<strong>This is awkward.</strong> An unknown error has occurred.');
+								// Figure out how to disable forms here
+								break;
+				}
 			}
-		} else {
-			var createEmail = document.getElementById("createEmail");
-			var createEmailVerify = document.getElementById("createEmailVerify");
-			createEmail.value = "";
-			createEmailVerify.value = "";
-			createEmail.focus();
-			createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your emails don\'t seem to match!');
-		}
+		});
 	}
 	
 	<!-- Autofocus login modal -->
