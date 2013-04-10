@@ -91,21 +91,28 @@
 
 
 	function login($userName, $password){
-		$return = 0;
+		/* Return values
+		* -1 indicates the user could not log in
+		* 0 - 2 indicates the permission type
+		*/
+		$return = -1;
 
 		mysql_connect($mysql_host,$mysql_user,$mysql_password);
 		@mysql_select_db($mysql_database);
 		$confirm = 0;
-		$query = "SELECT * FROM users WHERE Email='$userName' AND Password='$password' AND Confirmed>'$confirm'";
+		$query = "SELECT * FROM users WHERE Email='$userName' AND Password='$password'";
 		$result = mysql_query($query);
 		$count = mysql_num_rows($result);
 
 		if($count ==1){
 			$permission = mysql_result($result, 0,"Confirmed");
-			session_start();
-			$_SESSION['permission']= $permission;
-		}else{
-			$return = -1;
+			if($permission >0){
+				session_start();
+				$_SESSION['permission']= $permission;
+				$return = $permission;
+			}else{
+				$return = $permission;
+			}
 		}
 
 		echo "$return";
