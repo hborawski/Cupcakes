@@ -116,7 +116,7 @@
 									<input id="createEmailVerify" type="email" name="email" placeholder="Verify Email" autofocus="autofocus" required>
 									<input id="createPassword" type="password" name="password" placeholder="Choose Password" required>
 									<input id="createPasswordVerify" type="password" name="password" placeholder="Verify Password" required>
-									<button class="btn btn-primary" type="submit" onclick="createAccount()">
+									<button id="createAccountButton" class="btn btn-primary" type="submit" onclick="createAccount()">
 										Create Account
 									</button>
 								</div>
@@ -164,20 +164,49 @@
 				console.log(result);
 				switch (result) {
 					case '0':	createAlert('create-alert-placeholder', 'success', '<strong>Success!</strong> Click the link in the validation email to continue.');
-								// Figure out how to disable forms here
+								$('#createAccountButton').prop({disabled: true});
+								$('#createEmail').prop({disabled: true});
+								$('#createEmailVerify').prop({disabled: true});
+								$('#createPassword').prop({disabled: true});
+								$('#createPasswordVerify').prop({disabled: true});
 								break;
 					case '1':	createAlert('create-alert-placeholder', 'error', '<strong>Uh oh!</strong> That email address has already been taken!');
-								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+								createEmailForm.value = "";
+								createEmailVerifyForm.value = "";
+								createPasswordForm.value = "";
+								createPasswordVerifyForm.value = "";
+								createEmailForm.focus();
+								break;
 					case '2': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your emails don\'t seem to match!');
-								createEmailForm.value = ""; createEmailVerifyForm.value = ""; break;
+								createEmailForm.value = "";
+								createEmailVerifyForm.value = "";
+								createEmailForm.focus();
+								break;
 					case '3': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Your passwords don\'t seem to match!');
-								createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+								createPasswordForm.value = "";
+								createPasswordVerifyForm.value = "";
+								createPasswordForm.focus();
+								break;
 					case '4': createAlert('create-alert-placeholder', 'error', '<strong>Hey!</strong> Looks like neither your emails nor your passwords match!');
-								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+								createEmailForm.value = "";
+								createEmailVerifyForm.value = "";
+								createPasswordForm.value = "";
+								createPasswordVerifyForm.value = "";
+								createEmailForm.focus();
+								break;
 					case '5': createAlert('create-alert-placeholder', 'error', '<strong>Sorry!</strong> This application is only available to RIT students for now.');
-								createEmailForm.value = ""; createEmailVerifyForm.value = ""; createPasswordForm.value = ""; createPasswordVerifyForm.value = ""; break;
+								createEmailForm.value = "";
+								createEmailVerifyForm.value = "";
+								createPasswordForm.value = "";
+								createPasswordVerifyForm.value = "";
+								createEmailForm.focus();
+								break;
 					default: createAlert('create-alert-placeholder', 'error', '<strong>This is awkward.</strong> An unknown error has occurred.');
-								// Figure out how to disable forms here
+								$('#createAccountButton').attr('disabled', 'disabled').addClass('disabled');
+								$('#createEmail').prop({disabled: true});
+								$('#createEmailVerify').prop({disabled: true});
+								$('#createPassword').prop({disabled: true});
+								$('#createPasswordVerify').prop({disabled: true});
 								break;
 				}
 			}
