@@ -223,24 +223,30 @@
 	function verifyLogin() {
 		var email = $('#email').val();
 		var password = $('#password').val();
-		var dataString = 'email=' + email + '&password=' + password + '&type=0';
+		var dataString = 'function=login&email=' + email + '&password=' + password;
 		$.ajax({
 			type: "POST",
-			url: "check.php",
+			url: "api.php",
 			data: dataString,
 			cache: false,
 			success: function(result) {
-				var result = trim(result);
-				$("#flash").hide();
-				if (result == 'correct') {
-					window.location = '/main.html';
-				} else {
-					var passwordForm = document.getElementById("password");
-					var emailForm = document.getElementById("email");
-					emailForm.value = "";
-					passwordForm.value = "";
-					emailForm.focus();
-					createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
+				switch(result) {
+					case '-1': createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
+								var passwordForm = document.getElementById("password");
+								var emailForm = document.getElementById("email");
+								emailForm.value = "";
+								passwordForm.value = "";
+								emailForm.focus();
+								break;
+					case '0': createAlert('login-alert-placeholder', 'warning', '<strong>Hey!</strong> You haven\'t confirmed your email yet!');
+								var passwordForm = document.getElementById("password");
+								var emailForm = document.getElementById("email");
+								emailForm.value = "";
+								passwordForm.value = "";
+								emailForm.focus();
+								break;
+					default: window.location = '/main.html';
+								break;
 				}
 			}
 		});

@@ -57,7 +57,7 @@
 							<div class="clearfix">
 								<input id="password" type="password" name="password" placeholder="Password" required>
 							</div>
-							<button class="btn btn-primary" onclick="validLogin()" type="submit">
+							<button class="btn btn-primary" onclick="verifyLogin()" type="submit">
 								Sign in
 							</button>
 						</fieldset>
@@ -72,39 +72,46 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
-	function validLogin(){
+	function verifyLogin() {
 		var email = $('#email').val();
 		var password = $('#password').val();
-		var dataString = 'email=' + email + '&password=' + password + '&type=1';
+		var dataString = 'function=login&email=' + email + '&password=' + password;
 		$.ajax({
 			type: "POST",
-			url: "check.php",
+			url: "api.php",
 			data: dataString,
 			cache: false,
 			success: function(result) {
-				var result = trim(result);
-				$("#flash").hide();
-				console.log(result);
-				if (result == 'correct') {
-					window.location = '/management.html';
-				} else {
-					bootstrap_alert.warning('<strong>Hey!</strong> Check your username and password!');
+				switch(result) {
+					case '-1': createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
+								var passwordForm = document.getElementById("password");
+								var emailForm = document.getElementById("email");
+								emailForm.value = "";
+								passwordForm.value = "";
+								emailForm.focus();
+								break;
+					case '0': createAlert('login-alert-placeholder', 'warning', '<strong>Hey!</strong> You haven\'t confirmed your email yet!');
+								var passwordForm = document.getElementById("password");
+								var emailForm = document.getElementById("email");
+								emailForm.value = "";
+								passwordForm.value = "";
+								emailForm.focus();
+								break;
+					default: window.location = '/main.html';
+								break;
 				}
 			}
 		});
 	}
-	
-	function trim(str){
-		var str=str.replace(/^\s+|\s+$/,'');
-		return str;
+
+	<!-- General Functions -->
+	function createAlert(tag, type, message) {
+		$('#' + tag).html('<div class="alert alert-' + type + ' fade in" style="margin-top: 15px; margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
 	}
 	
-	bootstrap_alert = function() {}
-	bootstrap_alert.warning = function(message) {
-		var password = document.getElementById("password");
-		password.value = "";
-		password.focus();
-		$('#alert-placeholder').html('<div class="span4 offset4 alert alert-error fade in" style="margin-bottom: 0px;"><a class="close" data-dismiss="alert">×</a><span>'+ message +'</span></div>')
+	function trim(str){
+		var str = str.replace(/^\s+|\s+$/,'');
+		return str;
 	}
 	</script>
 </body>
