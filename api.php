@@ -61,17 +61,7 @@ function newUser($email,$verifyEmail,$password, $verifyPassword) {
 	$query = "SELECT * FROM users WHERE Email='$email'";
 	$numUsers = mysql_num_rows(mysql_query($query));
 
-	if((strcmp($email,$verifyEmail) == 0) && (strcmp($password,$verifyPassword) == 0)) {
-		// crypt($password, '$6$rounds=5000$' . mt_rand() . '$'); -- for future hashing
-		$time = date("H:i:s");
-		$hash = hash("md5",$email . $time);
-		$query = "INSERT INTO users (Email, Password, Time, Confirmed, Hash) VALUES('$email', '$password', '$time', '0', '$hash')";
-		mysql_query($query);
-		$message = "Confirmation link: " . $confirmationUrl . $hash;
-		mail($email, "Cupcakes Confirmation", $message, "Cupcakes");
-		mysql_close();
-		$return = 0;
-	} elseif($numUsers > 0) {
+	if($numUsers > 0) {
 		$return = 1;
 	} elseif(strcmp($email, $verifyEmail) != 0) {
 		$return = 2;
@@ -81,6 +71,16 @@ function newUser($email,$verifyEmail,$password, $verifyPassword) {
 		$return = 4;
 	} elseif(!preg_match('/^[a-zA-Z]{3}\d{4}[@]rit.edu$/', $email)) {
 		$return = 5;
+	} elseif((strcmp($email,$verifyEmail) == 0) && (strcmp($password,$verifyPassword) == 0)) {
+		// crypt($password, '$6$rounds=5000$' . mt_rand() . '$'); -- for future hashing
+		$time = date("H:i:s");
+		$hash = hash("md5",$email . $time);
+		$query = "INSERT INTO users (Email, Password, Time, Confirmed, Hash) VALUES('$email', '$password', '$time', '0', '$hash')";
+		mysql_query($query);
+		$message = "Confirmation link: " . $confirmationUrl . $hash;
+		mail($email, "Cupcakes Confirmation", $message, "Cupcakes");
+		mysql_close();
+		$return = 0;
 	}
 
 	echo "$return";
