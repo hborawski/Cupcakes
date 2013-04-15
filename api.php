@@ -37,6 +37,11 @@ switch ($func) {
 		$password = mysql_real_escape_string($_POST['password']);
 		login($email,$password);
 		break;
+	case 'changePassword':
+		$email = mysql_real_escape_string($_POST['email']);
+		$oldPassword = mysql_real_escape_string($_POST['oldPassword']);
+		$newPassword = mysql_real_escape_string($_POST['newPassword']);
+		changePassword($email,$oldPassword,$newPassword);
 	default:
 		//if sent an unknown function name
 		echo '-1';
@@ -164,4 +169,30 @@ function login($email, $password) {
 	mysql_close();
 	echo "$return";
 }
+
+
+	function changePassword($email, $oldPassword,$newPassword){
+		include "CONST.php";
+		/* Return Values
+		 * -1 - Error
+		 *  0 - Passwords did not match
+		 *  1 - Password was changed
+		 *
+ 		 *
+		 */
+		$return = -1;
+		if(!(strcmp($oldPassword,$newPassword))){
+			$return = 0;
+		}else{
+			mysql_connect($mysql_host, $mysql_user, $mysql_password);
+			@mysql_select_db($mysql_database);
+
+			$query = "UPDATE users SET Password='$newPassword' WHERE Email='$email' AND Password='$oldPassword'";
+			mysql_query($query);
+			mysql_close();
+			$return = 1;
+		}
+
+		echo "$return";
+	}
 ?>
