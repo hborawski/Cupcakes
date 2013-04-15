@@ -230,6 +230,7 @@
 			data: dataString,
 			cache: false,
 			success: function(result) {
+				console.log(result)
 				switch(result) {
 					case '-1': createAlert('login-alert-placeholder', 'error', '<strong>Hey!</strong> Check your username and password!');
 								var passwordForm = document.getElementById("password");

@@ -35,6 +35,7 @@ switch ($func) {
 	case 'login':
 		$userName = mysql_real_escape_string($_POST['email']);
 		$password = mysql_real_escape_string($_POST['password']);
+		login($userName,$password);
 		break;
 	default:
 		//if sent an unknown function name
@@ -126,7 +127,7 @@ function login($userName, $password) {
 	include "CONST.php";
 	/* Return values
 	* -1 indicates the user could not log in
-	* 0 - 2 indicates the permission type
+	*  0 - 2 indicates the permission type
 	*/
 	$return = -1;
 	/*
@@ -160,7 +161,7 @@ function login($userName, $password) {
 			$return = $permission;
 		}
 	}
-
+	mysql_close();
 	echo "$return";
 }
 ?>
