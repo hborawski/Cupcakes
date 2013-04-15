@@ -25,7 +25,15 @@
 							<a href="#">Sell</a>
 						</li>
 						<li>
-							<a href="#">Request</a>
+							<a href="request.php">Request</a>
+						</li>
+						<?php 
+						session_start();
+						$perm = $_SESSION['permission'];
+						if($perm==2){
+							echo "<li> <a href='management.html'>Manage</a></li>";
+						}
+						?>
 						<li>
 							<a href="#">About</a>
 						</li>
@@ -36,7 +44,11 @@
 						</form>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
-								Account
+								<?php
+								$email = $_SESSION['email'];
+								echo "$email";
+								?>
+								
 								<b class="caret"></b>
 							</a>
 							<ul class="dropdown-menu">
@@ -61,15 +73,10 @@
 		<?php include 'display.php';
 		include 'CONST.php';
 		session_start();
-		if(!isset($_SESSION['user'])){
+		if(!isset($_SESSION['permission'])){
 			header("location:index.html");
 		}
-		$perm = $_SESSION['permission'];
-		if($perm==1){
-			echo "<p align='center'> <a href='management.html'> Manage</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
-		}else{
-			echo "<p align='center'> <a href='loginAdmin.html'> Login</a>   <a href='request.php'> Request </a>   <a href='logout.php'> Logout </a></p>";
-		}
+		
 
 
 		$display = new tableBuilder();

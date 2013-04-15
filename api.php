@@ -33,9 +33,9 @@ switch ($func) {
 		sendMail($from, $subject, $message);
 		break;
 	case 'login':
-		$userName = mysql_real_escape_string($_POST['email']);
+		$email = mysql_real_escape_string($_POST['email']);
 		$password = mysql_real_escape_string($_POST['password']);
-		login($userName,$password);
+		login($email,$password);
 		break;
 	default:
 		//if sent an unknown function name
@@ -91,7 +91,7 @@ function newItem($name, $description, $price, $available, $quantity, $uploadedFi
 	include "CONST.php";
 	$url = $filename;
 	$return = 0;
-	$user = $_SESSION['userName'];
+	$user = $_SESSION['email'];
 	if(strlen($description) > 500) {
 		$return = -1;
 	} else {
@@ -112,7 +112,7 @@ function logout() {
 	session_start();
 	if(isset($_SESSION['permission'])) {
 		unset($_SESSION['permission']);
-		unset($_SESSION['userName']);
+		unset($_SESSION['email']);
 	}
 	session_destroy();
 }
@@ -123,7 +123,7 @@ function sendMail($from, $subject, $message) {
 	mail($ourEmail, $subject, $message, $from);
 }
 
-function login($userName, $password) {
+function login($email, $password) {
 	include "CONST.php";
 	/* Return values
 	* -1 indicates the user could not log in
@@ -145,17 +145,17 @@ function login($userName, $password) {
 	mysql_connect($mysql_host, $mysql_user, $mysql_password);
 	@mysql_select_db($mysql_database);
 	$confirm = 0;
-	$query = "SELECT * FROM users WHERE Email='$userName' AND Password='$password'";
+	$query = "SELECT * FROM users WHERE Email='$email' AND Password='$password'";
 	$result = mysql_query($query);
 	$count = mysql_num_rows($result);
 
 	if($count == 1) {
 		$permission = mysql_result($result, 0,"Confirmed");
-		$userName = mysql_result($result, 0, "Email");
+		$email = mysql_result($result, 0, "Email");
 		if($permission > 0) {
 			session_start();
 			$_SESSION['permission'] = $permission;
-			$_SESSION['userName'] = $userName;
+			$_SESSION['email'] = $email;
 			$return = $permission;
 		} else {
 			$return = $permission;
