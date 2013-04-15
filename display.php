@@ -17,11 +17,11 @@ class tableBuilder{
 			$tmp = mysql_result($result,$i,"Available");
 			if($tmp =="on"){
 				if($offers ==1){
-					$offer = "Make an Offer";
+					$offer = "Offer";
 					$avail = "For Sale or Best Offer";
 				}else{
 					$avail = "For Sale";
-					$offer = "Buy This Item";
+					$offer = "Buy";
 				}
 				$button = "<tr><td><form action='offer.php' method='post'><input style='width:200px' type='submit' name='offer' value='$offer'><input type='hidden' name='name' value='$name'><input type='hidden' name='offer' value='$offers'><input type='hidden' name='price' value='$price'></form></td></tr>";
 				$quant = "<br> Quantity In Stock: $num";
@@ -30,12 +30,31 @@ class tableBuilder{
 				$button='';
 			}
 			$url = "images/" . $tmpurl;
-    		echo "<div class='col-1-4'>";
-			echo "<div class='module'>";
-			echo "<table class='table table-bordered'><tr><td><div style='height:250px;overflow:hidden;vertical-align:middle;width:200px;position:relative;' ><img src=$url width='200px' style='position:absolute;top:0;bottom:0;margin:auto;'></div></td></tr><tr><td> $name <br> \$ $price <br> $avail $quant</td></tr>$button</table>";
-			echo "</div>";
-			echo "</div>";
-
+			echo "<li class=\"span3\">
+				<div class=\"thumbnail\">
+					<img src=\"$tmpurl\" alt="">
+					<h3 class=\"text-center\">$name</h3>
+					<p class=\"span2\">
+						\$ $price
+						<br>
+						$avail
+						<br>
+						Quantity In Stock: $num
+					</p>
+					<div class=\"row-fluid\">
+						<div class=\"span6\">
+							<button class=\"btn btn-primary btn-block\">
+								$offer
+							</button>
+						</div>
+						<div class=\"span6\">
+							<button class=\"btn btn-info btn-block\">
+								More Info
+							</button>
+						</div>
+					</div>
+				</div>
+			</li>";
 		}
 		echo "</div>";
 			
