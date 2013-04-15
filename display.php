@@ -7,7 +7,6 @@ class tableBuilder{
 		if($numrows == 0){
 			echo "<h1 align='center'>Out of Stock</h1>";
 		}
-		echo "<div class='grid grid-pad'>";
 		for($i = 0; $i<$numrows;$i++){
 			$name = mysql_result($result,$i,"Name");
 			$price = mysql_result($result,$i,"Price");
@@ -30,33 +29,15 @@ class tableBuilder{
 				$button='';
 			}
 			$url = "images/" . $tmpurl;
-			echo "<li class=\"span3\">
-				<div class=\"thumbnail\">
-					<img src=\"$tmpurl\" alt="">
-					<h3 class=\"text-center\">$name</h3>
-					<p class=\"span2\">
-						\$ $price
-						<br>
-						$avail
-						<br>
-						Quantity In Stock: $num
-					</p>
-					<div class=\"row-fluid\">
-						<div class=\"span6\">
-							<button class=\"btn btn-primary btn-block\">
-								$offer
-							</button>
-						</div>
-						<div class=\"span6\">
-							<button class=\"btn btn-info btn-block\">
-								More Info
-							</button>
-						</div>
-					</div>
-				</div>
-			</li>";
+			echo "<li class=\"span3\" style=\"background: #fff;\">";
+			echo "<div class=\"thumbnail\">";
+			echo "<img src='$url' alt=\"\" style=\"max-width: 200px\">";
+			echo "<h3 class=\"text-center\">$name</h3>";
+			echo "<p class=\"span2\">";
+			echo "\$ $price";
+			echo "<br>";
+			echo "$avail<br>Quantity In Stock: $num</p><div class=\"row-fluid\"><div class=\"span6\"><button class=\"btn btn-primary btn-block\">$offer</button></div><div class=\"span6\"><button class=\"btn btn-info btn-block\">More Info</button></div></div></div></li>";
 		}
-		echo "</div>";
 			
 	}
 }
