@@ -32,7 +32,7 @@ class tableBuilder{
 			$url = "images/" . $tmpurl;
     		echo "<div class='col-1-4'>";
 			echo "<div class='module'>";
-			echo "<table bordercolor='#000000' border='3px'><tr><td><div style='height:250px;overflow:hidden;vertical-align:middle;width:200px;position:relative;' ><img src=$url width='200px' style='position:absolute;top:0;bottom:0;margin:auto;'></div></td></tr><tr><td> $name <br> \$ $price <br> $avail $quant</td></tr>$button</table>";
+			echo "<table class='table table-bordered'><tr><td><div style='height:250px;overflow:hidden;vertical-align:middle;width:200px;position:relative;' ><img src=$url width='200px' style='position:absolute;top:0;bottom:0;margin:auto;'></div></td></tr><tr><td> $name <br> \$ $price <br> $avail $quant</td></tr>$button</table>";
 			echo "</div>";
 			echo "</div>";
 
