@@ -38,11 +38,13 @@ switch ($func) {
 		login($email,$password);
 		break;
 	case 'changePassword':
+		session_start();
 		$email = $_SESSION['email'];
 		$oldPassword = mysql_real_escape_string($_POST['oldPassword']);
 		$newPassword = mysql_real_escape_string($_POST['newPassword']);
 		$verifyNewPassword = mysql_real_escape_string($_POST['verifyNewPassword']);
 		changePassword($email,$oldPassword,$newPassword, $verifyNewPassword);
+		break;
 	default:
 		//if sent an unknown function name
 		echo '-1';
@@ -179,17 +181,18 @@ function login($email, $password) {
 		 *  0 - New passwords did not match
 		 *  1 - Old password was wrong
 		 *  2 - Password was changed
-		 *
  		 *
 		 */
 		mysql_connect($mysql_host,$mysql_user,$mysql_password);
 		@mysql_select_db($mysql_database);
+		$currentPassword = "";
 		$result = mysql_query("SELECT * FROM users WHERE Email='$email'");
 		$currentPassword = mysql_result($result, 0, "Password");
+		mysql_close();
 		$return = -1;
-		if(!(strcmp($verifyNewPassword,$newPassword))){
+		if((strcmp($verifyNewPassword,$newPassword)) != 0){
 			$return = 0;
-		}else if(!(strcmp($currentPassword,$oldPassword))){
+		}elseif((strcmp($oldPassword,$currentPassword)) != 0){
 			$return = 1;
 		}else{
 			mysql_connect($mysql_host, $mysql_user, $mysql_password);
