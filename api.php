@@ -116,6 +116,29 @@ function newItem($name, $description, $price, $available, $quantity, $uploadedFi
 	echo "$return";
 }
 
+function updateItem($name,$key, $available, $quantity, $saletype){
+	include "CONST.php";
+	mysql_connect($mysql_host, $mysql_user, $mysql_password);
+	@mysql_select_db($mysql_database);
+
+	$query = "UPDATE items SET Available='$available', Quantity='$quantity', SaleType='$saletype' WHERE Name='$name' AND ID='$key'";
+	mysql_query($query);
+	mysql_close();
+
+
+}
+
+function removeItem($name, $key, $url){
+	include "CONST.php";
+	mysql_connect($mysql_host, $mysql_user, $mysql_password);
+	@mysql_select_db($mysql_database);
+
+	$query = "DELETE FROM items WHERE Name='$name' AND ID='$key'";
+	mysql_query($query);
+	unlink("images/".$url);
+	
+}
+
 function logout() {
 	session_start();
 	if(isset($_SESSION['permission'])) {
