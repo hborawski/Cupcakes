@@ -4,51 +4,8 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
-	<title>Cupcakes</title>
-	<style type="text/css">
-	/* Override some defaults */
-	html, body {
-		background-color: #eee;
-	}
-	body {
-		padding-top: 40px; 
-	}
-
-	/* The white background content wrapper */
-	.container-fluid > .content {
-		background-color: #fff;
-		padding: 20px;
-		margin: 0 100px; 
-		-webkit-border-radius: 10px 10px 10px 10px;
-		-moz-border-radius: 10px 10px 10px 10px;
-		border-radius: 10px 10px 10px 10px;
-		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-		box-shadow: 0 1px 2px rgba(0,0,0,.15);
-	}
-
-	.container > .content {
-		background-color: #fff;
-		padding: 20px;
-		margin: 0 100px; 
-		-webkit-border-radius: 10px 10px 10px 10px;
-		-moz-border-radius: 10px 10px 10px 10px;
-		border-radius: 10px 10px 10px 10px;
-		-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-		box-shadow: 0 1px 2px rgba(0,0,0,.15);
-	}
-
-	.login-form {
-		margin-left: 45px;
-	}
-	
-	legend {
-		margin-right: -50px;
-		font-weight: bold;
-		color: #404040;
-	}
-	</style>
+	<link href="css/custom.css" rel="stylesheet" type="text/css">
+	<title>Cupcake</title>
 </head>
 <body>
 	<div class="container">
@@ -132,6 +89,7 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	<script type="text/javascript">
+	<!-- Show the create account model -->
 	function showCreateAccountModal() {
 		$('#loginModal').modal('hide');
 		$('#createAccountModal').modal('show');
@@ -144,6 +102,41 @@
 	    });
 	});
 	
+	<!-- Login modal on enter key submit -->
+	$("#password").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#signin").click();
+		}
+	});
+	$("#email").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#signin").click();
+		}
+	});
+	
+	<!-- Create account modal on enter key submit -->
+	$("#createEmail").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#createAccountButton").click();
+		}
+	});
+	$("#createEmailVerify").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#createAccountButton").click();
+		}
+	});
+	$("#createPassword").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#createAccountButton").click();
+		}
+	});
+	$("#createPasswordVerify").keyup(function(event) {
+		if(event.keyCode == 13){
+			$("#createAccountButton").click();
+		}
+	});
+	
+	<!-- AJAX to POST to Cupcake API for create account -->
 	function createAccount() {
 		var createPasswordForm = document.getElementById("createPassword");
 		var createEmailForm = document.getElementById("createEmail");
@@ -220,6 +213,7 @@
 	    });
 	});
 	
+	<!-- AJAX to POST to Cupcake API for login -->
 	function verifyLogin() {
 		var email = $('#email').val();
 		var password = $('#password').val();
