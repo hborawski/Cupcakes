@@ -21,6 +21,7 @@ class Item(models.Model):
 
 	def __unicode__(self):
 		return self.Name + " " + self.Price
+
 class Notification(models.Model)
 	Recipient = models.Charfield(max_length=15)
 	Sender = models.CharField(max_length=15)
@@ -29,3 +30,5 @@ class Notification(models.Model)
 	Read = models.IntegerField(default=0)
 	def __unicode__(self):
 		return self.Recipient + " " + self.Sender
+
+
