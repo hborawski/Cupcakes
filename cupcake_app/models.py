@@ -2,6 +2,9 @@ from django.db import models
 
 # Create your models here.
 
+class User(models.AbstractBaseUser):
+
+
 class Item(models.Model):
 	conditions = ["New out of box", "New in box", "Used in good condition","Used in fair condition", "Used in poor condition"]
 	Name = models.CharField()
@@ -21,7 +24,8 @@ class Notification(models.Model)
 	Message = models.CharField()
 	Time = model.DateTimeField()
 	Read = models.IntegerField(default=0)
+
 	def __unicode__(self):
-		return self.Recipient + " " + self.Sender
+		return self.Recipient + " " + self.Sender + " " + self.Message
 
 

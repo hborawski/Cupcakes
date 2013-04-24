@@ -154,3 +154,6 @@ LOGGING = {
         },
     }
 }
+
+#Custom user model
+AUTH_USER_MODEL = 'cupcake_app.User'
