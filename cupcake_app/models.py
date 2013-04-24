@@ -2,15 +2,8 @@ from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
-	Email = models.CharField(max_length=15)
-	Password = models.CharField(max_length=255)
-	Time = models.DateTimeField('date created')
-	Permission = models.IntegerField(default=0)
-	Location = models.IntegerField(default=0)
-	Salt = models.CharField(max_length=16)
-
 class Item(models.Model):
+	conditions = ["New out of box", "New in box", "Used in good condition","Used in fair condition", "Used in poor condition"]
 	Name = models.CharField()
 	Price = models.DecimalField(max_digits=10,decimal_places=2)
 	Quantity = models.IntegerField(default=1)
@@ -20,7 +13,7 @@ class Item(models.Model):
 	Available = models.IntegerField(default=1)
 
 	def __unicode__(self):
-		return self.Name + " " + self.Price
+		return self.Name + " " + self.Price + " " + condition[self.Condition]
 
 class Notification(models.Model)
 	Recipient = models.Charfield(max_length=15)
